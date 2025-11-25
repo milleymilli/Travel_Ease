@@ -50,14 +50,14 @@ npm start
 
 | Name     | Role Or Responsibility                                 |
 | -------- | ------------------------------------------------------ |
-| Million  | Team Lead and Backend Developer                        |
+| Million  | Team Lead and Backend Developer ,Docker setup          |
 | Andrew   | Product Owner and Backend Developer                    |
 | Alnur    | Designer and Backend Developer                         |
 | Muhammad | Frontend Developer HTML/CSS UI design and Scrum Master |
 | Umir     | Frontend Developer HTML/CSS UI design                  |
 | Yosuf    | Frontend Developer HTML/CSS UI design                  |
-| Samuel   | Database Manager MySQL schema, Docker setup            |
-| Arman    | Database Manager MySQL schema, Docker setup            |
+| Samuel   | Database Manager MySQL schema                          |
+| Arman    | Database Manager MySQL schema                          |
 
 ## 🤝 Contributing
 
