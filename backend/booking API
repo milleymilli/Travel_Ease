@@ -1,0 +1,38 @@
+const express = require("express");
+const router = express.Router();
+
+// Dummy data
+let bookings = [
+  { id: 1, name: "John", date: "12-12-2025" },
+  { id: 2, name: "Joe", date: "11-01-2026" },
+];
+
+// Get all bookings
+router.get("/", (req, res) => {
+  res.json(bookings);
+});
+
+// Get booking ID
+router.get("/:id", (req, res) => {
+  const booking = bookings.find(b => b.id === parseInt(req.params.id));
+  if (!booking) return res.status(404).json({ error: "Booking not found" });
+  res.json(booking);
+});
+
+// Post booking
+router.post("/", (req, res) => {
+  const { name, date } = req.body;
+  const newBooking = { id: bookings.length + 1, name, date };
+  bookings.push(newBooking);
+  res.status(201).json(newBooking);
+});
+
+// Delete booking
+router.delete("/:id", (req, res) => {
+  const index = bookings.findIndex(b => b.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).json({ error: "Booking not found" });
+  const deleted = bookings.splice(index, 1);
+  res.json(deleted[0]);
+});
+
+module.exports = router;
