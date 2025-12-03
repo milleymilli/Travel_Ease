@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us – Travel Ease</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">  
+    <link rel="stylesheet" href="./css/about.css">  
+</head>
+
+<body>
+
+
+<header>
+    <div class="content flex_space">
+        <div class="logo">
+            <img src="images/logo.png" alt="Travel Ease Logo">
+        </div>
+        <div class="navlinks">
+            <ul id="menulist">
+                <li><a href="index.html#home">home</a></li>
+                <li><a href="about.html">about</a></li>
+                <li><a href="index.html#rooms">rooms</a></li>
+                <li><a href="contact.html">contact</a></li>
+                <li><i class="fa fa-search"></i></li>
+                <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+            </ul>
+            <span class="fa fa-bars" onclick="menutoggle()"></span>
+        </div>
+    </div>
+</header>
+
+<script>
+    var menulist = document.getElementById('menulist');
+    menulist.style.maxHeight = "0px";
+    function menutoggle() {
+        menulist.style.maxHeight = (menulist.style.maxHeight == "0px") ? "100vh" : "0px";
+    }
+</script>
+
+
+<section class="about-hero">
+    <div class="hero-overlay">
+        <h1>Our team cares about your full relax</h1>
+        <p>
+            Forget the typical stress of flying—the last minute baggage fees, the struggle for a decent seat, 
+            and the worry about unexpected delays. We’ve designed our service, and our flight packages, 
+            to handle the complexity for you.
+            <br><br>
+            With us, your booking is more than just a ticket; it’s a guarantee of simplicity. From securing your 
+            preferred seat and managing your luggage upfront to providing real-time updates and seamless premium 
+            upgrades, we ensure the entire process is smooth, clear, and quiet. Simply choose your adventure. 
+            We’ll take care of the rest.
+        </p>
+        <button class="hero-btn">View our Tour Packages</button>
+    </div>
+</section>
+
+
+<section class="about-intro">
+    <div class="container intro-flex">
+
+        <div class="intro-image">
+      
+            <img src="images/about-us.png" alt="Travel destination">
+        </div>
+
+        <div class="intro-text">
+            <p class="eyebrow">WELCOME TO OUR SITE!</p>
+            <h2>We are here to make your holiday stress free</h2>
+            <p class="intro-description">
+                We are right in the center of your next adventure, ready to offer you real city life and hidden gems. 
+                With years of experience in practically every tourism sector, we help you find complete packages at 
+                the best price, travel and learn, and have fun without worries.
+                <br><br>
+                What are you waiting for? Book a bright evening, a coastal escape, or a personal tour crafted just for you.
+            </p>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="number">20+</span>
+                    <span class="label">Years<br>Experience</span>
+                </div>
+                <div class="stat">
+                    <span class="number">100+</span>
+                    <span class="label">Happy<br>Customers</span>
+                </div>
+                <div class="stat">
+                    <span class="number">15+</span>
+                    <span class="label">Choice of<br>Services</span>
+                </div>
+                <div class="stat">
+                    <span class="number">10+</span>
+                    <span class="label">Top<br>Destinations</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="about-features">
+    <div class="features-inner">
+        <div class="feature-card">
+            <div class="icon-circle">
+                <i class="fa fa-suitcase-rolling"></i>
+            </div>
+            <h3>Complete Packages<br>For All Your Wishes</h3>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon-circle">
+                <i class="fa fa-clock"></i>
+            </div>
+            <h3>Over 20 Years<br>Of Experience</h3>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon-circle">
+                <i class="fa fa-user-tie"></i>
+            </div>
+            <h3>Expert Guides<br>For You</h3>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon-circle">
+                <i class="fa fa-tags"></i>
+            </div>
+            <h3>Guaranteed Fun<br>At The Best Price</h3>
+        </div>
+    </div>
+</section>
+
+<!-- ================= TESTIMONIALS SECTION ================= -->
+<section class="testimonials">
+    <div class="container">
+
+        <div class="testimonial-row">
+
+            <div class="testimonial-card">
+                <div class="person">
+                    <img src="images/person1.jpg" alt="Customer">
+                    <p class="name">Lyod Gomez</p>
+                </div>
+                <p class="quote">
+                    “But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
+                    was born and I will give you a complete account of the system, and expound the actual teachings
+                    of the great explorer of the truth, the master-builder of human happiness.”
+                </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="person">
+                    <img src="images/person2.jpg" alt="Customer">
+                    <p class="name">Lyod Gomez</p>
+                </div>
+                <p class="quote">
+                    “No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who
+                    do not know how to pursue pleasure rationally encounter consequences that are extremely painful.”
+                </p>
+            </div>
+
+        </div>
+
+        <div class="testimonial-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</section>
+
+<!-- ------------ FOOTER (same as index) ------------ -->
+<footer>
+    <div class="container grid">
+        <div class="box">
+            <img src="logo2.png" alt="">
+            <p> random description for footer of travel ease </p>
+            <div class="icon">
+                <i class="fa fa-facebook-f"></i>
+                <i class="fa fa-instagram"></i>
+                <i class="fa fa-twitter"></i>
+                <i class="fa fa-youtube"></i>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>Links</h2>
+            <ul>
+                <li>Company History</li>
+                <li>About Us</li>
+                <li>Contact Us</li>
+                <li>Services</li>
+                <li>Privacy Policy</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h2>Contact Us</h2>
+            <p> random description for contact of travel ease </p>
+            <i class="fa fa-location-dot"></i>
+            <label>Aston university </label> <br>
+            <i class="fa fa-phone"></i>
+            <label>[44] 123 456 789</label> <br>
+            <i class="fa fa-envelope"></i>
+            <label>adfkgdfng@travelease.com</label> <br>
+        </div>
+    </div>
+</footer>
+
+<div class="legal">
+    <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved.</p>
+</div>
+
+</body>
+</html>
