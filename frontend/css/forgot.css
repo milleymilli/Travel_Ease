@@ -1,0 +1,64 @@
+/* Centering section */
+.forgot-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #f6f6f6;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card */
+.forgot-box {
+    background: #fff;
+    width: 420px;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.10);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Heading */
+.forgot-box h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Input box */
+.forgot-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* Send Reset Link button */
+.reset-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff523b; /* same theme */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Back to login */
+.back-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-login a {
+    color: #ff523b;
+    font-weight: 600;
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password – Travel Ease</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">  
+    <link rel="stylesheet" href="./css/forgot.css"> 
+</head>
+
+<body>
+
+
+<header>
+    <div class="content flex_space">
+        <div class="logo">
+            <img src="images/logo.png" alt="Travel Ease Logo">
+        </div>
+
+        <div class="navlinks">
+            <ul id="menulist">
+                <li><a href="index.html#home">home</a></li>
+                <li><a href="index.html#about">about</a></li>
+                <li><a href="index.html#rooms">rooms</a></li>
+                <li><a href="contact.html">contact</a></li>
+                <li><i class="fa fa-search"></i></li>
+                <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+            </ul>
+            <span class="fa fa-bars" onclick="menutoggle()"></span>
+        </div>
+    </div>
+</header>
+
+<script>
+    var menulist = document.getElementById('menulist');
+    menulist.style.maxHeight = "0px";
+
+    function menutoggle() {
+        menulist.style.maxHeight =
+            menulist.style.maxHeight == "0px" ? "100vh" : "0px";
+    }
+</script>
+
+
+<section class="forgot-section">
+    <div class="forgot-box">
+
+        <h2>Forgot Password</h2>
+        <p class="subtitle">Enter your email below and we will send you a reset link.</p>
+
+        <form>
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email address">
+
+            <button class="reset-btn">Send Reset Link</button>
+
+            <p class="back-login">
+                <a href="login.html">Back to Login</a>
+            </p>
+        </form>
+
+    </div>
+</section>
+
+
+<footer>
+    <div class="container grid">
+        <div class="box">
+            <img src="logo2.png" alt="">
+            <p> random description for footer of travel ease </p>
+            <div class="icon">
+                <i class="fa fa-facebook-f"></i>
+                <i class="fa fa-instagram"></i>
+                <i class="fa fa-twitter"></i>
+                <i class="fa fa-youtube"></i>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>Links</h2>
+            <ul>
+                <li>Company History</li>
+                <li>About Us</li>
+                <li>Contact Us</li>
+                <li>Services</li>
+                <li>Privacy Policy</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h2>Contact Us</h2>
+            <p> random description for contact of travel ease </p>
+            <i class="fa fa-location-dot"></i>
+            <label>Aston university</label> <br>
+            <i class="fa fa-phone"></i>
+            <label>[44] 123 456 789</label> <br>
+            <i class="fa fa-envelope"></i>
+            <label>adfkgdfng@travelease.com</label> <br>
+        </div>
+    </div>
+</footer>
+
+<div class="legal">
+    <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved.</p>
+</div>
+
+</body>
+</html>
