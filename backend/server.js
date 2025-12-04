@@ -1,10 +1,12 @@
 const express = require("express");
 const path = require("path");
+require("dotenv").config();
+
+const testRoutes = require("./Routes/testRoute");
 /*For now we don't need CORS coz our API request and 
 Frontend Html are from the same origin
 const cors = require("cors")
 */
-require("dotenv").config();
 
 
 const userRoutes = require("./Routes/userRoutes");
@@ -19,6 +21,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json()); // Allows server to read JSON data
 app.use(express.static(path.join(__dirname, "..", "frontend")));
 
+//Mounting our API Routes
+app.use("/api/flights", testRoutes);
+
+// Our basic route
 app.use("/api/users", userRoutes);
 app.use("/api/destinations", destinationRoutes);
 
