@@ -1,5 +1,5 @@
 const express = require("express");
-const Booking = require("../models/Booking"); // references booking class in ../models/booking.js
+const Booking = require("../controllers/Booking"); // references booking class in ../models/booking.js
 const ValidateBooking = require("..middleware/validationMW"); //  validation middleware link
 
 const router = express.Router();
@@ -45,3 +45,4 @@ router.delete("/:id", (req, res) =>
 });
 
 module.exports = router; // makes it available to other files
+
