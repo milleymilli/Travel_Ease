@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 //Mounting our API Routes
-app.use("/api/", testRoutes);
+app.use("/api/flights", testRoutes);
 
 // Our basic route
 app.get("/", (req, res) => {
