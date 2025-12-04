@@ -102,4 +102,4 @@ const signin = (req, res, next) => {
     }
 };
 
-module.exports = { getUsers, createUser };
+module.exports = { getUsers, createUser, signin, signup };
