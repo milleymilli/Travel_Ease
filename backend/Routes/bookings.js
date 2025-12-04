@@ -1,5 +1,6 @@
 const express = require("express");
 const Booking = require("../models/Booking"); // references booking class in ../models/booking.js
+const ValidateBooking = require("..middleware/validationMW"); //  validation middleware link
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/:id", (req, res) =>
 });
 
 // Create booking
-router.post("/", (req, res) => 
+router.post("/", ValidateBooking, (req, res) => 
   {
   const { name, date } = req.body; // gets name and date from request body
 
