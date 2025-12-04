@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Ease</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- icons for hamburg and seach didnt work had to use font awesome -->
-    <link rel="stylesheet" href="./css/style.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
+    <link rel="stylesheet" href="style.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    
       <header>
     <div class="content flex_space">
       <div class="logo">
@@ -25,10 +26,7 @@
           <li><a href="#rooms">rooms</a> </li>
           <li><a href="contact.html">contact</a> </li>
           <li> <i class="fa fa-search"></i> </li>
-          <li> <button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button>
- </li>
-
- </li>
+          <li> <button class="primary-btn">Sign In</button> </li>
         </ul>
         <span class="fa fa-bars" onclick="menutoggle()"></span>
       </div>
@@ -52,7 +50,7 @@
     <div class="content">
       <div class="owl-carousel owl-theme"> <!-- owlcarousel basic setup from their website -->
         <div class="item">
-          <img src="./images/banner.jpg" alt="">
+          <img src="banner.jpg" alt="">
           <div class="text">
             <h1> Explore Holidays</h1>
             <p>Random sentence oofdigndfi0gndigndf </p>
@@ -63,7 +61,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="./images/banner2.jpg" alt="">
+          <img src="banner2.jpg" alt="">
           <div class="text">
             <h1> Explore Holidays</h1>
             <p>Random sentence oofdigndfi0gndigndf </p>
@@ -74,7 +72,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="./images/banner3.jpg" alt="">
+          <img src="banner3.jpg" alt="">
           <div class="text">
             <h1> Explore Holidays</h1>
             <p>Random sentence oofdigndfi0gndigndf </p>
@@ -112,6 +110,7 @@
     })
   </script>
 
+  <!-- the dropdown list to select adults and children contains all place holders -->
   <section class="book">
     <div class="container flex_space">
       <div class="text">
@@ -121,8 +120,30 @@
         <form class="grid">
           <input type="date" placeholder="Araival Date">
           <input type="date" placeholder="Departure Date">
-          <input type="number" placeholder="Adults">
-          <input type="number" placeholder="Childern">
+          <select placeholder="Adults">
+            <option value="">Select Adults</option>
+            <option value="1">1 Adult</option>
+            <option value="2">2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults</option>
+            <option value="5">5 Adults</option>
+          </select>
+          <select placeholder="Children">
+            <option value="">Select Children</option>
+            <option value="0">0 Children</option>
+            <option value="1">1 Child</option>
+            <option value="2">2 Children</option>
+            <option value="3">3 Children</option>
+            <option value="4">4 Children</option>
+            <option value="5">5 Children</option>
+          </select>
+          <select id="countrySelect">
+            <option value="">Select Country</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Tokyo">Tokyo</option>
+            <option value="New York">New York</option>
+            <option value="Paris">Paris</option>
+          </select>
           <input type="submit" value="CHECK AVAILABILITY">
         </form>
       </div>
@@ -185,6 +206,20 @@
   <div class="legal">
     <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved.</p>
   </div>
+
+  <script>
+    <!-- the dropdown list to select countries -->
+    const countrySelect = document.getElementById('countrySelect');
+    const countries = ['Dubai', 'Tokyo', 'New York', 'Paris'];
+
+    countrySelect.innerHTML = '<option value="">Select Country</option>';
+    countries.forEach(country => {
+      const option = document.createElement('option');
+      option.value = country;
+      option.textContent = country;
+      countrySelect.appendChild(option);
+    });
+  </script>
 
 </body>
 </html>
