@@ -3,9 +3,27 @@
 console.log("TRACE: 1. Controller file loaded.");
 
 const mockDestinations = [
-    { id: 101, location: "Paris, France", price: 450, stock: 20 },
-    { id: 102, location: "Tokyo, Japan", price: 850, stock: 15 },
-    { id: 103, location: "New York, USA", price: 600, stock: 50 }
+    { 
+        id: 101, 
+        location: "Paris, France", 
+        price: 450, 
+        stock: 20, 
+        image: "/images/paris.jpg"
+    },
+    { 
+        id: 102, 
+        location: "Tokyo, Japan", 
+        price: 850, 
+        stock: 15, 
+        image: "/images/tokyo.jpg"
+    },
+    { 
+        id: 103, 
+        location: "New York, USA", 
+        price: 600, 
+        stock: 50, 
+        image: "/images/usa.jpg"
+    }
 ];
 
 // Get all destinations
@@ -43,5 +61,3 @@ const getDestinationById = (req, res, next) => {
 };
 
 module.exports = { getDestinations, getDestinationById };
-
-console.log("TRACE: 2. Route file loaded.");
