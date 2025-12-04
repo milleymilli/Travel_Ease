@@ -9,7 +9,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
         
-        /* Amazon-style card hover effect */
         .flight-card {
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -24,14 +23,14 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <a href="flight_results.html" class="text-2xl font-extrabold text-red-600 tracking-tight">Travel Ease</a>
+                <a href="product.html" class="text-2xl font-extrabold text-red-600 tracking-tight">Travel Ease</a>
             </div>
 
             <nav class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
-                <a href="#" class="hover:text-red-600 transition">HOME</a>
-                <a href="#" class="hover:text-red-600 transition">ABOUT</a>
-                <a href="#" class="text-red-600 transition">FLIGHTS</a>
-                <a href="#" class="hover:text-red-600 transition">CONTACT</a>
+                <a href="index.html" class="hover:text-red-600 transition">HOME</a>
+                <a href="about.html" class="hover:text-red-600 transition">ABOUT</a>
+                <a href="product.html" class="text-red-600 transition">FLIGHTS</a>
+                <a href="contact.html" class="hover:text-red-600 transition">CONTACT</a>
             </nav>
 
             <div class="flex items-center space-x-6">
@@ -42,7 +41,7 @@
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transform scale-0 transition-transform duration-200">0</span>
                 </a>
 
-                <button class="bg-red-600 text-white px-5 py-2 text-sm font-bold rounded-lg shadow hover:bg-red-700 transition">
+                <button class="bg-red-600 text-white px-5 py-2 text-sm font-bold rounded-lg shadow hover:bg-red-700 transition" onclick="window.location.href='login.html'">
                     Sign in
                 </button>
             </div>
@@ -107,7 +106,6 @@
             </aside>
 
             <section class="col-span-1 lg:col-span-3">
-                
                 <div id="loading-spinner" class="text-center py-12">
                     <svg class="animate-spin h-10 w-10 text-red-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -123,7 +121,6 @@
 
                 <div id="flight-results-container" class="space-y-4">
                     </div>
-
             </section>
         </div>
     </main>
@@ -148,7 +145,6 @@
         const errorMessageText = document.getElementById('error-message-text');
 
         // --- BASKET LOGIC ---
-        
         function updateCartCount() {
             const basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
             if (basket.length > 0) {
@@ -161,6 +157,7 @@
 
         window.addToBasket = function(flightData) {
             let basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+            // Remove image from basket storage to save space, we handle it on display
             const { image, ...itemToStore } = flightData;
             basket.push(itemToStore);
             localStorage.setItem('travel_basket', JSON.stringify(basket));
@@ -175,7 +172,7 @@
             }, 3000);
         }
 
-        // --- FETCH FUNCTION (FIXED) ---
+        // --- FETCH FUNCTION ---
         async function fetchFlights() {
             loader.classList.remove('hidden');
             errorMessage.classList.add('hidden');
@@ -188,18 +185,13 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 
-                // 1. Get raw JSON
                 const responseJson = await response.json();
-                
-                // 2. EXTRACT THE ARRAY (Correct logic)
                 const flightArray = responseJson.data;
                 
-                // 3. Check if array exists and has length
                 if (!flightArray || flightArray.length === 0) {
                     throw new Error("No flights found.");
                 }
 
-                // 4. Render the specific array
                 renderFlights(flightArray);
 
             } catch (error) {
@@ -211,36 +203,49 @@
             }
         }
 
-        // --- RENDER FUNCTION ---
+        // --- RENDER FUNCTION (UPDATED) ---
         function renderFlights(flights) {
             loader.classList.add('hidden'); 
             container.innerHTML = ''; 
 
+            // 1. Define specific backups for each city
+            const backupImages = {
+                "Paris, France": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80",
+                "Tokyo, Japan": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80",
+                "New York, USA": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80"
+            };
+
             flights.forEach(flight => {
                 if (!flight.id || !flight.location || !flight.price) {
-                     console.warn("Skipping incomplete flight:", flight);
                      return;
                 }
                 
-                // Default values
                 const airline = flight.airline || 'Various Airlines';
                 const departureTime = flight.departureTime || '10:00';
                 const arrivalTime = flight.arrivalTime || '14:00';
                 const duration = flight.duration || '4h 00m';
                 const stops = flight.stops || 'Direct';
                 const rating = flight.rating || '4.5';
-                
-                // For 'destination', we use the 'location' property from your backend
                 const destinationName = flight.location; 
 
-                // Escape single quotes for the JSON string
+                // 2. Determine the specific backup for THIS flight
+                const specificBackup = backupImages[destinationName] || 'https://placehold.co/300x200?text=No+Image';
+
+                // 3. Primary Image (From Backend)
+                const primaryImage = flight.image || specificBackup;
+
                 const flightString = JSON.stringify(flight).replace(/'/g, "&#39;");
 
                 const cardHTML = `
                     <div class="flight-card bg-white rounded-lg border border-gray-200 p-4 flex flex-col sm:flex-row gap-4">
                         
                         <div class="sm:w-48 h-48 sm:h-auto flex-shrink-0 relative">
-                            <img src="${flight.image || 'https://placehold.co/300x200?text=Flight'}" alt="${destinationName}" class="w-full h-full object-cover rounded-md">
+                            <img 
+                                src="${primaryImage}" 
+                                alt="${destinationName}" 
+                                class="w-full h-full object-cover rounded-md" 
+                                onerror="this.onerror=null;this.src='${specificBackup}';"
+                            >
                             <div class="absolute top-2 left-2 bg-white px-2 py-1 text-xs font-bold rounded shadow text-gray-800">
                                 ${rating} ★
                             </div>
@@ -294,7 +299,6 @@
             });
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             fetchFlights();
             updateCartCount();

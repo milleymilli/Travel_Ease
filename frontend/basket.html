@@ -12,48 +12,39 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- HEADER -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Left: Logo -->
             <div class="flex items-center space-x-2">
-                <a href="flight_results.html" class="text-2xl font-extrabold text-red-600 tracking-tight">Travel Ease</a>
+                <a href="product.html" class="text-2xl font-extrabold text-red-600 tracking-tight">Travel Ease</a>
             </div>
 
-            <!-- Center: Nav -->
             <nav class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
-                <a href="#" class="hover:text-red-600 transition">HOME</a>
-                <a href="#" class="hover:text-red-600 transition">ABOUT</a>
-                <a href="flight_results.html" class="text-red-600 transition">FLIGHTS</a>
-                <a href="#" class="hover:text-red-600 transition">CONTACT</a>
+                <a href="index.html" class="hover:text-red-600 transition">HOME</a>
+                <a href="about.html" class="hover:text-red-600 transition">ABOUT</a>
+                <a href="product.html" class="text-red-600 transition">FLIGHTS</a>
+                <a href="contact.html" class="hover:text-red-600 transition">CONTACT</a>
             </nav>
 
-            <!-- Right: Actions (Basket is currently here) -->
             <div class="text-sm font-medium text-gray-500">
                 Basket Review
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
         <h1 class="text-3xl font-bold text-gray-900 mb-8">Your Flight Basket</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- LEFT COLUMN: Item Details -->
             <div class="lg:col-span-2 space-y-4" id="basket-items-container">
-                <!-- Basket items will be injected here -->
                 <p class="text-center py-10 text-gray-500">Loading basket...</p>
             </div>
 
-            <!-- RIGHT COLUMN: Summary and Checkout Button -->
             <div class="lg:col-span-1">
                 <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 sticky top-24">
                     <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Booking Summary</h3>
                     
-                    <!-- Price Breakdown -->
                     <div class="space-y-3 text-base text-gray-700">
                         <div class="flex justify-between">
                             <span>Number of Items</span>
@@ -69,7 +60,6 @@
                         </div>
                     </div>
 
-                    <!-- Checkout Button -->
                     <button 
                         id="proceed-to-checkout-btn"
                         onclick="window.location.href='checkout.html'" 
@@ -97,39 +87,67 @@
             const checkoutBtn = document.getElementById('proceed-to-checkout-btn');
             const emptyMsg = document.getElementById('empty-basket-message');
 
-            container.innerHTML = ''; // Clear loading text
+            container.innerHTML = ''; 
             let subtotal = 0;
 
             if (basket.length === 0) {
-                container.innerHTML = '<div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center text-gray-500">Your basket is empty. <a href="flight_results.html" class="text-red-600 hover:underline font-medium">Start browsing flights</a>.</div>';
+                container.innerHTML = '<div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center text-gray-500">Your basket is empty. <a href="product.html" class="text-red-600 hover:underline font-medium">Start browsing flights</a>.</div>';
                 checkoutBtn.disabled = true;
                 emptyMsg.classList.remove('hidden');
+                
+                countEl.textContent = '0';
+                subtotalEl.textContent = '£0.00';
+                totalEl.textContent = '£0.00';
                 return;
             }
 
             checkoutBtn.disabled = false;
             emptyMsg.classList.add('hidden');
 
+            // 1. Define specific backups (Same as Product Page)
+            const backupImages = {
+                "Paris, France": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80",
+                "Tokyo, Japan": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80",
+                "New York, USA": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80"
+            };
+
             basket.forEach((item, index) => {
-                const price = parseFloat(item.price);
+                const price = parseFloat(item.price) || 0;
                 subtotal += price;
+
+                const name = item.location || item.destination || "Unknown Destination";
+                const airline = item.airline || "Travel Ease Air";
+                const stops = item.stops || "Direct";
+                const depTime = item.departureTime || "10:00 AM";
+                const duration = item.duration || "4h";
+
+                // 2. Logic to choose image (Updated)
+                // Try saved image first -> then specific backup -> then generic gray box
+                const specificBackup = backupImages[name] || 'https://placehold.co/100x100?text=Flight';
+                const imageSrc = item.image || specificBackup;
 
                 const itemHTML = `
                     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col sm:flex-row items-center gap-4">
                         
-                        <!-- Image and Details -->
-                        <img src="${item.image}" alt="${item.destination}" class="w-full sm:w-24 h-24 object-cover rounded-md flex-shrink-0">
+                        <img 
+                            src="${imageSrc}" 
+                            alt="${name}" 
+                            class="w-full sm:w-24 h-24 object-cover rounded-md flex-shrink-0" 
+                            onerror="this.onerror=null;this.src='${specificBackup}';"
+                        >
                         
-                        <div class="flex-grow">
-                            <h3 class="text-xl font-bold text-gray-900">${item.destination}</h3>
-                            <p class="text-sm text-gray-500">${item.airline} • ${item.stops}</p>
-                            <p class="text-xs text-gray-400 mt-1">Departs: ${item.departureTime} • Duration: ${item.duration}</p>
+                        <div class="flex-grow text-center sm:text-left">
+                            <h3 class="text-xl font-bold text-gray-900">${name}</h3>
+                            <p class="text-sm text-gray-500">${airline} • ${stops}</p>
+                            <p class="text-xs text-gray-400 mt-1">Departs: ${depTime} • Duration: ${duration}</p>
                         </div>
 
-                        <!-- Price and Remove Button -->
-                        <div class="sm:w-40 flex flex-col items-end text-right space-y-2">
-                            <div class="text-2xl font-bold text-red-600">£${price.toFixed(2)}</div>
-                            <button onclick="removeFromBasket(${index})" class="text-sm text-gray-400 hover:text-red-600 transition">
+                        <div class="sm:w-40 flex flex-col items-center sm:items-end text-right space-y-2 w-full">
+                            <div class="text-2xl font-bold text-red-600">£${price.toFixed(0)}</div>
+                            <button onclick="removeFromBasket(${index})" class="text-sm text-gray-400 hover:text-red-600 transition flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
                                 Remove
                             </button>
                         </div>
@@ -138,9 +156,7 @@
                 container.insertAdjacentHTML('beforeend', itemHTML);
             });
 
-            // Update Summary
-            const total = subtotal; // Assuming taxes are included in the stored price
-            
+            const total = subtotal; 
             countEl.textContent = basket.length;
             subtotalEl.textContent = `£${subtotal.toFixed(2)}`;
             totalEl.textContent = `£${total.toFixed(2)}`;
@@ -148,21 +164,12 @@
 
         function removeFromBasket(index) {
             let basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
-            
-            // Remove the item at the specific index
             basket.splice(index, 1);
-            
-            // Save the updated basket
             localStorage.setItem('travel_basket', JSON.stringify(basket));
-            
-            // Reload the view
             loadBasket();
         }
 
-        // Expose function globally for the onclick handler
         window.removeFromBasket = removeFromBasket;
-
-        // Initialize
         document.addEventListener('DOMContentLoaded', loadBasket);
     </script>
 </body>
