@@ -1,4 +1,4 @@
-/* Centering section */
+
 .forgot-section {
     width: 100%;
     padding: 80px 0;
@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-/* Card */
+
 .forgot-box {
     background: #fff;
     width: 420px;
@@ -17,21 +17,21 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Heading */
+
 .forgot-box h2 {
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-/* Subtitle */
+
 .subtitle {
     font-size: 14px;
     margin-bottom: 20px;
     color: #666;
 }
 
-/* Input box */
+
 .forgot-box input {
     width: 100%;
     padding: 12px;
@@ -40,11 +40,11 @@
     margin-bottom: 20px;
 }
 
-/* Send Reset Link button */
+
 .reset-btn {
     width: 100%;
     padding: 12px;
-    background: #ff523b; /* same theme */
+    background: #ff523b; 
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -52,7 +52,7 @@
     font-size: 16px;
 }
 
-/* Back to login */
+
 .back-login {
     margin-top: 20px;
     text-align: center;
