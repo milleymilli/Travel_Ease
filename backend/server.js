@@ -8,21 +8,32 @@ Frontend Html are from the same origin
 const cors = require("cors")
 */
 
+
+const userRoutes = require("./Routes/userRoutes");
+const destinationRoutes = require("./Routes/destinationRoutes");
+const errorHandler = require("./Middleware/errorMiddleware");
+
 const app = express();
 
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
+app.use(express.json()); // Allows server to read JSON data
 app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 //Mounting our API Routes
 app.use("/api/flights", testRoutes);
 
 // Our basic route
+app.use("/api/users", userRoutes);
+app.use("/api/destinations", destinationRoutes);
+
+// Our basic route (Serves the Frontend)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
