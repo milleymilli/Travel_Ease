@@ -1,5 +1,7 @@
 // backend/Controllers/destinationController.js
 
+console.log("TRACE: 1. Controller file loaded.");
+
 const mockDestinations = [
     { id: 101, location: "Paris, France", price: 450, stock: 20 },
     { id: 102, location: "Tokyo, Japan", price: 850, stock: 15 },
@@ -41,3 +43,5 @@ const getDestinationById = (req, res, next) => {
 };
 
 module.exports = { getDestinations, getDestinationById };
+
+console.log("TRACE: 2. Route file loaded.");
