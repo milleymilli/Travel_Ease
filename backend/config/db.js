@@ -1,17 +1,18 @@
-import mysql from "mysql2/promise";
-import dotenv from "dotenv";
-
-dotenv.config();
+const mysql = require("mysql2/promise");
+const dotenv = require("dotenv");
+const path = require("path");
+const envPath = path.resolve(__dirname, "..", "..", ".env");
+dotenv.config({ path: envPath });
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
+  host: process.env.MYSQL_HOST || "localhost",
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  port: process.env.PORT || 3306,
+  port: process.env.MYSQL_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
 
-export default pool;
+module.exports = pool;
