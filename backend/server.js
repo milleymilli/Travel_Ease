@@ -8,8 +8,8 @@ Frontend Html are from the same origin
 const cors = require("cors")
 */
 
-const bookingRoutes = require("./Routes/bookings");
-const paymentRoutes = require("./Routes/payments");
+//const bookingRoutes = require("./Routes/bookings");
+//const paymentRoutes = require("./Routes/payments");
 const userRoutes = require("./Routes/userRoutes");
 const destinationRoutes = require("./Routes/destinationRoutes");
 const errorHandler = require("./Middleware/errorMiddleware");
@@ -29,8 +29,8 @@ app.use("/api/flights", testRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/destinations", destinationRoutes);
 
-app.use("/api/bookings", bookingRoutes);
-app.use("/api/payments", paymentRoutes);
+//app.use("/api/bookings", bookingRoutes);
+//app.use("/api/payments", paymentRoutes);
 
 // Our basic route (Serves the Frontend)
 app.get("/", (req, res) => {
