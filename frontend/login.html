@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login – Travel Ease</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/login.css" />
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">  
+    <link rel="stylesheet" href="./css/login.css"> 
 
-  <body>
-    <header>
-      <div class="content flex_space">
+</head>
+
+
+
+<body>
+
+
+<header>
+    <div class="content flex_space">
         <div class="logo">
           <img src="images/logo.png" alt="Travel Ease Logo" />
         </div>
@@ -55,26 +57,30 @@
       <div class="login-box">
         <h2>Login</h2>
 
-        <form>
-          <label>Email Address</label>
-          <input type="email" placeholder="Enter your email address" />
+        <form id="loginForm">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email address">
 
-          <label>Password</label>
-          <div class="password-wrapper">
-            <input type="password" placeholder="Enter your password" />
-            <i class="fa fa-eye"></i>
-          </div>
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Enter your password">
+                <i class="fa fa-eye"></i>
+            </div>
 
-          <a href="forgot.html" class="forgot">Forgot your password?</a>
+            <p id="errorMsg" style="color:red; display:none; font-size:14px; margin-top:-5px;">
+                 Incorrect username or password. Try again or create an account.
+            </p>
 
-          <button class="login-btn">Sign In</button>
+            <a href="forgot.html" class="forgot">Forgot your password?</a>
+
+            <button type="submit" class="login-btn">Sign In</button>
 
           <div class="or">or</div>
 
-          <button class="google-btn">
-            <i class="fa-brands fa-google"></i>
-            Sign In with Google
-          </button>
+            <button type="button" class="google-btn">
+                <i class="fa-brands fa-google"></i>
+                Sign In with Google
+            </button>
 
           <p class="signup-link">
             Don’t have an account?
@@ -121,10 +127,55 @@
       </div>
     </footer>
 
-    <div class="legal">
-      <p class="container">
-        Copyright (c) 2025 Copyright Holder All Rights Reserved.
-      </p>
-    </div>
-  </body>
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let errorMsg = document.getElementById("errorMsg");
+
+    // Hide previous errors
+    errorMsg.style.display = "none";
+
+    try {
+        let response = await fetch("http://localhost:3000/api/users/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+        let data = await response.json();
+        console.log(data);
+
+        if (response.ok) {
+            // Save user data if needed
+            localStorage.setItem("user", JSON.stringify(data.data));
+
+            // Redirect to homepage
+            window.location.href = "index.html";
+        } 
+        else {
+            // Backend error (invalid login info)
+            errorMsg.innerText = data.error || "Incorrect email or password.";
+            errorMsg.style.display = "block";
+            document.getElementById("password").value = "";
+        }
+
+    } catch (err) {
+        // Server is down or unreachable
+        errorMsg.innerText = "Cannot connect to server.";
+        errorMsg.style.display = "block";
+    }
+});
+</script>
+
+
+
+</body>
 </html>
