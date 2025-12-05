@@ -188,6 +188,7 @@ header ul {
 }
 
 header ul li {
+    position: sticky;
   display: inline-block;
   text-transform: uppercase;
 }
@@ -213,7 +214,15 @@ header button {
 header .navlinks span {
   display: none;
 }
-
+ .logo img {
+            height: 50px; /* Constrains the logo size */
+            width: auto;
+            vertical-align: middle;
+        }
+ header .content .logo {
+            padding-left: 0; 
+            margin-left: 0;
+        }
 @media only screen and (max-width:768px) { /* for mobile devices or other sized stuff */
   header ul {
     position: absolute;
