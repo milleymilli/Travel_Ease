@@ -7,10 +7,11 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: sans-serif;
   font-weight: 400;
 }
@@ -65,8 +66,17 @@ header {
   height: 10vh;
   line-height: 10vh;
   padding: 0 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
 }
-
+header .content.logo {
+  padding-left: o;
+  margin-left: 0;
+  height: 50px;
+}
 header img {
   margin: 20px 0;
 }
@@ -102,7 +112,8 @@ header .navlinks span {
   display: none;
 }
 
-@media only screen and (max-width:768px) { /* for mobile devices or other sized stuff */
+@media only screen and (max-width: 768px) {
+  /* for mobile devices or other sized stuff */
   header ul {
     position: absolute;
     top: 100px;
@@ -223,7 +234,7 @@ h1 {
 
 .book select {
   padding: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .book input:nth-last-child(1) {
@@ -237,7 +248,8 @@ h1 {
 }
 
 /*--------About Us bit--------*/
-.left, .right {
+.left,
+.right {
   width: 50%;
   padding: 30px;
 }
@@ -271,7 +283,7 @@ h1 {
 }
 
 .about {
-  position: relative; 
+  position: relative;
 }
 
 .about .left {
@@ -364,4 +376,3 @@ footer label {
   padding: 20px;
   text-align: center;
 }
-
