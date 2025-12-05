@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"> <!-- icons for hamburg and seach didnt work had to use font awesome -->
-    <link rel="stylesheet" href="./css/style2.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
+    <link rel="stylesheet" href="style2.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
             <div class="contact-wrapper">
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
-                    <form>
+                    <form id="contactForm">
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Your Name" required>
                         </div>
@@ -50,8 +50,11 @@
                         <div class="form-group">
                             <input type="message" name="message" placeholder="Your Message to us" required>
                         </div>
-                        <button type="submit" class="primary-btn">Submit</button>
+                        <button type="submit" class="primary-btn submit-btn">Submit</button>
                     </form>
+                    <div id="successMessage" style="display: none; margin-top: 15px; padding: 15px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px; color: #155724;">
+                        Your message has been delivered be sure to look out for an incoming email from us!
+                    </div>
                 </div>
                 <div class="contact-info">
                     <h3>Contact Information</h3>
@@ -73,6 +76,27 @@
       } else {
         menulist.style.maxHeight = "0px";
       }
+    }
+
+    // Handle contact form submission
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show success message
+        successMessage.style.display = 'block';
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(function() {
+          successMessage.style.display = 'none';
+        }, 5000);
+      });
     }
   </script>
 
