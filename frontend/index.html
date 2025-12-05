@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Travel Ease</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- icons for hamburg and seach didnt work had to use font awesome -->
     <link rel="stylesheet" href="style/style.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
@@ -30,21 +29,20 @@
         </ul>
         <span class="fa fa-bars" onclick="menutoggle()"></span>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <script>
-    var menulist = document.getElementById('menulist');
-    menulist.style.maxHeight = "0px";
+    <script>
+      var menulist = document.getElementById("menulist");
+      menulist.style.maxHeight = "0px";
 
-    function menutoggle() {
-      if (menulist.style.maxHeight == "0px") {
-        menulist.style.maxHeight = "100vh";
-      } else {
-        menulist.style.maxHeight = "0px";
+      function menutoggle() {
+        if (menulist.style.maxHeight == "0px") {
+          menulist.style.maxHeight = "100vh";
+        } else {
+          menulist.style.maxHeight = "0px";
+        }
       }
-    }
-  </script>
+    </script>
 
 <section class="home">
     <div class="content">
@@ -83,32 +81,44 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- got this from owlcarousel basic setup website -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
-    $('.owl-carousel').owlCarousel({
-      loop: true,
-      margin: 0,
-      nav: true,
-      dots: false,
-      navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
-      responsive: {
-        0: {
-          items: 1
+    <!-- got this from owlcarousel basic setup website -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"
+      integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $(".owl-carousel").owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: true,
+        dots: false,
+        navText: [
+          "<i class = 'fa fa-chevron-left'></i>",
+          "<i class = 'fa fa-chevron-right'></i>",
+        ],
+        responsive: {
+          0: {
+            items: 1,
+          },
+          768: {
+            items: 1,
+          },
+          1000: {
+            items: 1,
+          },
         },
-        768: {
-          items: 1
-        },
-        1000: {
-          items: 1
-        }
-      }
-    })
-  </script>
+      });
+    </script>
 
   <!-- the dropdown list to select adults and children contains all place holders -->
   <section class="book">
@@ -148,15 +158,23 @@
           <button type="button" class="primary-btn" onclick="window.location.href='product.html'">CHECK AVAILABILITY</button>
         </form>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="about top">
-    <div class="container flex">
-      <div class="left">
-        <div class="heading">
-          <h1>WELCOME</h1>
-          <h2>Travel Ease</h2>
+    <section class="about top">
+      <div class="container flex">
+        <div class="left">
+          <div class="heading">
+            <h1>WELCOME</h1>
+            <h2>Travel Ease</h2>
+          </div>
+          <p>
+            Random description about travel ease
+            ojdfgndofngfdoing[dofngdfo[igdh=e0worhf=e0w9uihgerhgjkljjbppjbnsad
+          </p>
+          <button class="primary-btn">ABOUT US</button>
+        </div>
+        <div class="right">
+          <img src="./images/about-us.png" alt="Travel Ease About Image" />
         </div>
         <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options. Enjoy smooth, reliable travel planning designed to get you where you need to go—easily and effortlessly.</p>
         <button class="primary-btn">ABOUT US</button>
@@ -164,8 +182,7 @@
       <div class="right">
         <img src="images/about.png" alt="Travel Ease About Image">
       </div>
-    </div>
-  </section>
+    </section>
 
     <footer>
     <div class="container grid">
@@ -178,7 +195,6 @@
           <i class="fa fa-twitter"></i>
           <i class="fa fa-youtube"></i>
         </div>
-      </div>
 
       <div class="box">
         <h2>Links</h2>
@@ -200,26 +216,24 @@
         <i class="fa fa-envelope"></i>
         <label>808hasan@travelease.com</label> <br>
       </div>
-    </div>
-  </footer>
+    </footer>
 
   <div class="legal">
     <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved. Made by Hasan</p>
   </div>
 
-  <script>
-    <!-- the dropdown list to select countries -->
-    const countrySelect = document.getElementById('countrySelect');
-    const countries = ['Dubai', 'Tokyo', 'New York', 'Paris'];
+    <script>
+      <!-- the dropdown list to select countries -->
+      const countrySelect = document.getElementById("countrySelect");
+      const countries = ["Dubai", "Tokyo", "New York", "Paris"];
 
-    countrySelect.innerHTML = '<option value="">Select Country</option>';
-    countries.forEach(country => {
-      const option = document.createElement('option');
-      option.value = country;
-      option.textContent = country;
-      countrySelect.appendChild(option);
-    });
-  </script>
+      countrySelect.innerHTML = '<option value="">Select Country</option>';
+      countries.forEach((country) => {
+        const option = document.createElement("option");
+        option.value = country;
+        option.textContent = country;
+        countrySelect.appendChild(option);
+      });
 
 </body>
 </html>

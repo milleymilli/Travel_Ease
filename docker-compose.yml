@@ -12,6 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - ./db/mydb.sql:/docker-entrypoint-initdb.d/mydb.sql
       - db_data:/var/lib/mysql
 
   phpmyadmin:
