@@ -1,4 +1,4 @@
-/* ===== HERO SECTION ===== */
+
 .about-hero {
     height: 65vh;
     background: url('../images/about-bg.jpg') center/cover no-repeat;
@@ -46,7 +46,7 @@
     font-weight: 500;
 }
 
-/* ===== INTRO SECTION ===== */
+
 .about-intro {
     padding: 70px 0;
     background: #ffffff;
@@ -93,7 +93,7 @@
     margin-bottom: 20px;
 }
 
-/* Stats row */
+
 .stats {
     display: flex;
     flex-wrap: wrap;
@@ -113,7 +113,7 @@
     color: #777;
 }
 
-/* ===== FEATURE CARDS (ORANGE STRIP) ===== */
+
 .about-features {
     background: linear-gradient(90deg, #ffb27a, #ff9456);
     padding: 30px 0;
@@ -155,7 +155,7 @@
     line-height: 1.5;
 }
 
-/* ===== TESTIMONIALS ===== */
+
 .testimonials {
     padding: 60px 0 80px;
     background: #ffffff;
@@ -200,7 +200,7 @@
     line-height: 1.7;
 }
 
-/* Tiny slider dots (decorative only) */
+
 .testimonial-dots {
     margin-top: 25px;
     text-align: center;
@@ -219,7 +219,7 @@
     background: #ff8b3d;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 900px) {
     .about-hero {
         height: auto;
