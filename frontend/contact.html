@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"> <!-- icons for hamburg and seach didnt work had to use font awesome -->
-    <link rel="stylesheet" href="./css/style2.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
+    <link rel="stylesheet" href="style/style2.css"> <!-- my css uses owlcarousel and jquery cdn, check their website if u need to -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -30,38 +30,43 @@
         <span class="fa fa-bars" onclick="menutoggle()"></span>
       </div>
     </div>
-
-        <section class="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <div class="contact-wrapper">
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="phone" name="phone" placeholder="Your Phone number" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="message" name="message" placeholder="Your Message to us" required>
-                        </div>
-                        <button type="submit" class="primary-btn">Submit</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p><i class="fa fa-map-marker-alt"></i> 123 Travel St, Wanderlust City, Country</p>
-                    <p><i class="fa fa-phone"></i> +123 456 7890</p>
-                    <p><i class="fa fa-envelope"></i> sadsada@aston.ac.uk</p>
-            </div>
-
-            
   </header>
+
+  <section class="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <div class="contact-wrapper">
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <input type="phone" name="phone" placeholder="Your Phone number" required>
+            </div>
+            <div class="form-group">
+              <input type="message" name="message" placeholder="Your Message to us" required>
+            </div>
+            <button type="submit" class="primary-btn submit-btn">Submit</button>
+          </form>
+          <div id="successMessage" style="display: none; margin-top: 15px; padding: 15px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px; color: #155724;">
+            Your message has been delivered be sure to look out for an incoming email from us!
+          </div>
+        </div>
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <p><i class="fa fa-map-marker-alt"></i> 123 Travel St, Wanderlust City, Country</p>
+          <p><i class="fa fa-phone"></i> +123 456 7890</p>
+          <p><i class="fa fa-envelope"></i> 808hasan@aston.ac.uk</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 
   <script>
     var menulist = document.getElementById('menulist');
@@ -74,7 +79,67 @@
         menulist.style.maxHeight = "0px";
       }
     }
+
+      <!-- Contact Form Submission Script -->
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show success message
+        successMessage.style.display = 'block';
+
+        contactForm.reset();
+        
+
+        setTimeout(function() {
+          successMessage.style.display = 'none';
+        }, 5000);
+      });
+    }
   </script>
+
+  <footer>
+    <div class="container grid">
+      <div class="box">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+        <p> Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options. Enjoy smooth, reliable travel planning designed to get you where you need to go—easily and effortlessly. </p>
+        <div class="icon"> <!-- remember to add icons for social media -->
+          <i class="fa fa-facebook-f"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-youtube"></i>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Links</h2>
+        <ul>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Services</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2>Contact Us</h2>
+        <p> Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options. Enjoy smooth, reliable travel planning designed to get you where you need to go—easily and effortlessly. </p>
+        <i class="fa fa-location-dot"></i>
+        <label>Aston university </label> <br>
+        <i class="fa fa-phone"></i>
+        <label>[44] 123 456 789</label> <br>
+        <i class="fa fa-envelope"></i>
+        <label>808hasan@travelease.com</label> <br>
+      </div>
+    </div>
+  </footer>
+
+  <div class="legal">
+    <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved. Made by Hasan</p>
+  </div>
 
 </body>
 </html>
