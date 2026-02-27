@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout – Travel Ease</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+      </div>
+      <div class="navlinks">
+        <ul id="menulist">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="product.html">Flights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="basket.html" class="basket-link">Basket <span class="cart-badge" id="nav-cart-badge">0</span></a></li>
+          <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    var menulist = document.getElementById("menulist");
+    menulist.style.maxHeight = "0px";
+    function menutoggle() {
+      menulist.style.maxHeight = menulist.style.maxHeight == "0px" ? "100vh" : "0px";
+    }
+  </script>
+
+  <div class="checkout-page page-main">
+    <div class="container">
+      <h1>Confirm and Pay</h1>
+
+      <form id="checkout-form">
+        <div class="checkout-layout">
+
+          <!-- Left: Form steps -->
+          <div class="checkout-steps">
+
+            <!-- Step 1: Contact -->
+            <div class="checkout-section">
+              <h2><span class="step-badge">1</span> Contact Details</h2>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>Email Address</label>
+                  <input type="email" required placeholder="you@example.com">
+                </div>
+                <div class="form-field">
+                  <label>Phone Number</label>
+                  <input type="tel" required placeholder="+44 7700 000000">
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Traveller -->
+            <div class="checkout-section">
+              <h2><span class="step-badge">2</span> Traveller Details</h2>
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label>First Name</label>
+                  <input type="text" required placeholder="e.g. Sarah">
+                </div>
+                <div class="form-field">
+                  <label>Last Name</label>
+                  <input type="text" required placeholder="e.g. Connor">
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Payment -->
+            <div class="checkout-section">
+              <h2><span class="step-badge">3</span> Payment Method</h2>
+              <div class="card-icons">
+                <span class="card-icon-badge">VISA</span>
+                <span class="card-icon-badge">MC</span>
+                <span class="card-icon-badge">AMEX</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div class="form-field">
+                  <label>Card Number</label>
+                  <input type="text" required maxlength="19" placeholder="0000 0000 0000 0000" id="cardNumber">
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-field">
+                    <label>Expiry Date</label>
+                    <input type="text" required maxlength="5" placeholder="MM/YY" id="expiry">
+                  </div>
+                  <div class="form-field">
+                    <label>CVC</label>
+                    <input type="text" required maxlength="3" placeholder="123">
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label>Cardholder Name</label>
+                  <input type="text" required placeholder="Name on card">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Order summary -->
+          <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="order-items" id="order-items">
+              <p style="font-size:13px; color:#aaa;">Loading basket...</p>
+            </div>
+            <div class="order-price-breakdown">
+              <div class="order-price-row">
+                <span>Subtotal</span>
+                <span id="summary-subtotal">£0.00</span>
+              </div>
+              <div class="order-price-row">
+                <span>Taxes & Fees</span>
+                <span id="summary-tax">£0.00</span>
+              </div>
+            </div>
+            <div class="order-price-total">
+              <span>Total</span>
+              <span id="summary-total">£0.00</span>
+            </div>
+
+            <button type="submit" class="pay-btn" id="pay-btn">
+              <span id="pay-btn-text">Complete Booking</span>
+              <div class="btn-spinner" id="pay-spinner"></div>
+            </button>
+
+            <p class="secure-badge"><i class="fa fa-lock"></i> 256-bit SSL Secure Payment</p>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-box">
+      <div class="modal-icon">
+        <i class="fa fa-check"></i>
+      </div>
+      <h3>Booking Confirmed!</h3>
+      <p>Thank you for booking with Travel Ease. Your confirmation details have been sent to your email address.</p>
+      <button class="primary-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container grid">
+      <div class="box">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+        <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options.</p>
+        <div class="icon">
+          <i class="fa fa-facebook-f"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-youtube"></i>
+        </div>
+      </div>
+      <div class="box">
+        <h2>Links</h2>
+        <ul>
+          <li onclick="window.location.href='about.html'">About Us</li>
+          <li onclick="window.location.href='contact.html'">Contact Us</li>
+          <li onclick="window.location.href='product.html'">Flights</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Contact Us</h2>
+        <i class="fa fa-location-dot"></i><label>Aston University, Birmingham</label><br>
+        <i class="fa fa-phone"></i><label>[44] 123 456 789</label><br>
+        <i class="fa fa-envelope"></i><label>info@travelease.com</label>
+      </div>
+    </div>
+  </footer>
+
+  <div class="legal">
+    <p class="container">Copyright &copy; 2025 Travel Ease. All Rights Reserved.</p>
+  </div>
+
+  <script>
+    function updateNavBadge(count) {
+      const badge = document.getElementById('nav-cart-badge');
+      if (badge) { badge.textContent = count; badge.style.display = count > 0 ? 'inline-flex' : 'none'; }
+    }
+
+    function loadCheckout() {
+      const basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      const container = document.getElementById('order-items');
+      const payBtn = document.getElementById('pay-btn');
+
+      updateNavBadge(basket.length);
+
+      if (basket.length === 0) {
+        container.innerHTML = '<p style="font-size:13px; color:#e74c3c;">Your basket is empty. Please add flights first.</p>';
+        payBtn.disabled = true;
+        return;
+      }
+
+      container.innerHTML = '';
+      let subtotal = 0;
+
+      basket.forEach(item => {
+        const price = parseFloat(item.price);
+        subtotal += price;
+        const name = item.destination || item.location || 'Unknown';
+        const imgSrc = item.image || 'https://placehold.co/60x45?text=Flight';
+
+        container.insertAdjacentHTML('beforeend', `
+          <div class="order-item">
+            <img src="${imgSrc}" alt="${name}" onerror="this.src='https://placehold.co/60x45?text=Flight'">
+            <div class="order-item-info">
+              <h4>${name}</h4>
+              <p>${item.airline || 'Travel Ease Air'} &bull; ${item.stops || 'Direct'}</p>
+            </div>
+            <div class="order-item-price">£${price.toFixed(0)}</div>
+          </div>
+        `);
+      });
+
+      const total = subtotal;
+      document.getElementById('summary-subtotal').textContent = `£${subtotal.toFixed(2)}`;
+      document.getElementById('summary-tax').textContent = `£0.00`;
+      document.getElementById('summary-total').textContent = `£${total.toFixed(2)}`;
+      document.getElementById('pay-btn-text').textContent = `Pay £${total.toFixed(2)}`;
+    }
+
+    // Format card number with spaces
+    document.getElementById('cardNumber').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim().slice(0, 19);
+    });
+
+    // Format expiry
+    document.getElementById('expiry').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '').replace(/^(\d{2})(\d)/, '$1/$2').slice(0, 5);
+    });
+
+    // Form submission
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const payBtn = document.getElementById('pay-btn');
+      const btnText = document.getElementById('pay-btn-text');
+      const spinner = document.getElementById('pay-spinner');
+
+      payBtn.disabled = true;
+      btnText.textContent = 'Processing...';
+      spinner.style.display = 'block';
+
+      setTimeout(() => {
+        localStorage.removeItem('travel_basket');
+        document.getElementById('success-modal').classList.add('show');
+      }, 2000);
+    });
+
+    document.addEventListener('DOMContentLoaded', loadCheckout);
+  </script>
+
+</body>
+</html>

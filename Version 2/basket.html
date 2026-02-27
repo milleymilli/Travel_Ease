@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Basket – Travel Ease</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+      </div>
+      <div class="navlinks">
+        <ul id="menulist">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="product.html">Flights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="basket.html" class="basket-link">Basket <span class="cart-badge" id="nav-cart-badge">0</span></a></li>
+          <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    var menulist = document.getElementById("menulist");
+    menulist.style.maxHeight = "0px";
+    function menutoggle() {
+      menulist.style.maxHeight = menulist.style.maxHeight == "0px" ? "100vh" : "0px";
+    }
+  </script>
+
+  <div class="basket-page page-main">
+    <div class="container">
+      <h1>Your Flight Basket</h1>
+
+      <div class="basket-layout">
+        <!-- Basket items -->
+        <div class="basket-items" id="basket-items-container">
+          <p style="color:#888; text-align:center; padding:40px 0;">Loading basket...</p>
+        </div>
+
+        <!-- Summary sidebar -->
+        <div class="summary-card">
+          <h3>Booking Summary</h3>
+          <div class="summary-row">
+            <span>Number of items</span>
+            <span id="summary-count">0</span>
+          </div>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">£0.00</span>
+          </div>
+          <div class="summary-total">
+            <span>Grand Total</span>
+            <span id="summary-total">£0.00</span>
+          </div>
+          <button class="checkout-btn" id="proceed-to-checkout-btn" onclick="window.location.href='checkout.html'" disabled>
+            Proceed to Checkout
+          </button>
+          <p class="basket-warning" id="empty-basket-message">Your basket is empty. Add flights to proceed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container grid">
+      <div class="box">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+        <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options.</p>
+        <div class="icon">
+          <i class="fa fa-facebook-f"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-youtube"></i>
+        </div>
+      </div>
+      <div class="box">
+        <h2>Links</h2>
+        <ul>
+          <li onclick="window.location.href='about.html'">About Us</li>
+          <li onclick="window.location.href='contact.html'">Contact Us</li>
+          <li onclick="window.location.href='product.html'">Flights</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Contact Us</h2>
+        <i class="fa fa-location-dot"></i><label>Aston University, Birmingham</label><br>
+        <i class="fa fa-phone"></i><label>[44] 123 456 789</label><br>
+        <i class="fa fa-envelope"></i><label>info@travelease.com</label>
+      </div>
+    </div>
+  </footer>
+
+  <div class="legal">
+    <p class="container">Copyright &copy; 2025 Travel Ease. All Rights Reserved.</p>
+  </div>
+
+  <script>
+    const backupImages = {
+      "Paris, France": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=300&q=80",
+      "Tokyo, Japan": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=300&q=80",
+      "New York, USA": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=300&q=80"
+    };
+
+    function updateNavBadge(count) {
+      const badge = document.getElementById('nav-cart-badge');
+      if (badge) { badge.textContent = count; badge.style.display = count > 0 ? 'inline-flex' : 'none'; }
+    }
+
+    function loadBasket() {
+      const basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      const container = document.getElementById('basket-items-container');
+      const checkoutBtn = document.getElementById('proceed-to-checkout-btn');
+      const emptyMsg = document.getElementById('empty-basket-message');
+
+      updateNavBadge(basket.length);
+      container.innerHTML = '';
+      let subtotal = 0;
+
+      if (basket.length === 0) {
+        container.innerHTML = `
+          <div class="basket-empty">
+            <i class="fa fa-suitcase" style="font-size:40px; color:#ddd; margin-bottom:12px; display:block;"></i>
+            Your basket is empty. <a href="product.html">Start browsing flights</a>.
+          </div>`;
+        checkoutBtn.disabled = true;
+        emptyMsg.style.display = 'block';
+        document.getElementById('summary-count').textContent = '0';
+        document.getElementById('summary-subtotal').textContent = '£0.00';
+        document.getElementById('summary-total').textContent = '£0.00';
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+      emptyMsg.style.display = 'none';
+
+      basket.forEach((item, index) => {
+        const price = parseFloat(item.price) || 0;
+        subtotal += price;
+        const name = item.location || item.destination || "Unknown Destination";
+        const airline = item.airline || 'Travel Ease Air';
+        const stops = item.stops || 'Direct';
+        const depTime = item.departureTime || '10:00 AM';
+        const duration = item.duration || '4h';
+        const backup = backupImages[name] || 'https://placehold.co/100x80?text=Flight';
+        const imgSrc = item.image || backup;
+
+        container.insertAdjacentHTML('beforeend', `
+          <div class="basket-card">
+            <img src="${imgSrc}" alt="${name}" onerror="this.src='${backup}'">
+            <div class="basket-card-info">
+              <h3>${name}</h3>
+              <p>${airline} &bull; ${stops}</p>
+              <p class="departs">Departs: ${depTime} &bull; Duration: ${duration}</p>
+            </div>
+            <div class="basket-card-right">
+              <span class="price">£${price.toFixed(0)}</span>
+              <button class="remove-btn" onclick="removeFromBasket(${index})">
+                <i class="fa fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+        `);
+      });
+
+      document.getElementById('summary-count').textContent = basket.length;
+      document.getElementById('summary-subtotal').textContent = `£${subtotal.toFixed(2)}`;
+      document.getElementById('summary-total').textContent = `£${subtotal.toFixed(2)}`;
+    }
+
+    function removeFromBasket(index) {
+      let basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      basket.splice(index, 1);
+      localStorage.setItem('travel_basket', JSON.stringify(basket));
+      loadBasket();
+    }
+
+    window.removeFromBasket = removeFromBasket;
+    document.addEventListener('DOMContentLoaded', loadBasket);
+  </script>
+
+</body>
+</html>

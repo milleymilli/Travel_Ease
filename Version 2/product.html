@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flights – Travel Ease</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+      </div>
+      <div class="navlinks">
+        <ul id="menulist">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="product.html">Flights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="basket.html" class="basket-link">Basket <span class="cart-badge" id="nav-cart-badge">0</span></a></li>
+          <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    var menulist = document.getElementById("menulist");
+    menulist.style.maxHeight = "0px";
+    function menutoggle() {
+      menulist.style.maxHeight = menulist.style.maxHeight == "0px" ? "100vh" : "0px";
+    }
+  </script>
+
+  <!-- Toolbar -->
+  <div class="flights-toolbar">
+    <div class="container">
+      <p id="search-summary-text">Showing all available flight packages</p>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <label style="font-size:12px; font-weight:600; color:#888; text-transform:uppercase;">Sort by:</label>
+        <select id="sort">
+          <option>Recommended</option>
+          <option>Price: Low to High</option>
+          <option>Duration: Shortest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="flights-page page-main">
+    <div class="container">
+      <div class="flights-layout">
+
+        <!-- Sidebar filters -->
+        <aside class="flights-sidebar">
+          <div class="filter-card">
+            <h3>Stops</h3>
+            <label class="filter-option">
+              <input type="checkbox" checked> Direct
+            </label>
+            <label class="filter-option">
+              <input type="checkbox"> 1 Stop
+            </label>
+            <label class="filter-option">
+              <input type="checkbox"> 2+ Stops
+            </label>
+          </div>
+
+          <div class="filter-card">
+            <h3>Airlines</h3>
+            <label class="filter-option">
+              <input type="checkbox" checked> British Airways
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" checked> Emirates
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" checked> Lufthansa
+            </label>
+          </div>
+        </aside>
+
+        <!-- Results -->
+        <section>
+          <div id="loading-spinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Searching best flights...</p>
+          </div>
+
+          <div id="error-message" class="error-box">
+            <strong>Error:</strong> <span id="error-message-text"></span>
+          </div>
+
+          <div id="flight-results-container" class="flights-results"></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast">
+    <i class="fa fa-check-circle"></i>
+    <span>Flight added to basket!</span>
+  </div>
+
+  <footer>
+    <div class="container grid">
+      <div class="box">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+        <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options.</p>
+        <div class="icon">
+          <i class="fa fa-facebook-f"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-youtube"></i>
+        </div>
+      </div>
+      <div class="box">
+        <h2>Links</h2>
+        <ul>
+          <li onclick="window.location.href='about.html'">About Us</li>
+          <li onclick="window.location.href='contact.html'">Contact Us</li>
+          <li onclick="window.location.href='product.html'">Flights</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Contact Us</h2>
+        <i class="fa fa-location-dot"></i><label>Aston University, Birmingham</label><br>
+        <i class="fa fa-phone"></i><label>[44] 123 456 789</label><br>
+        <i class="fa fa-envelope"></i><label>info@travelease.com</label>
+      </div>
+    </div>
+  </footer>
+
+  <div class="legal">
+    <p class="container">Copyright &copy; 2025 Travel Ease. All Rights Reserved.</p>
+  </div>
+
+  <script>
+    const API_URL = '/api/destinations';
+    const container = document.getElementById('flight-results-container');
+    const loader = document.getElementById('loading-spinner');
+    const errorBox = document.getElementById('error-message');
+    const errorText = document.getElementById('error-message-text');
+    const toast = document.getElementById('toast');
+    const navBadge = document.getElementById('nav-cart-badge');
+
+    // Backup images for known destinations
+    const backupImages = {
+      "Paris, France": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80",
+      "Tokyo, Japan": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80",
+      "New York, USA": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80"
+    };
+
+    function updateCartCount() {
+      const basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      if (navBadge) {
+        navBadge.textContent = basket.length;
+        navBadge.style.display = basket.length > 0 ? 'inline-flex' : 'none';
+      }
+    }
+
+    window.addToBasket = function(flightData) {
+      let basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      const { image, ...itemToStore } = flightData;
+      basket.push(itemToStore);
+      localStorage.setItem('travel_basket', JSON.stringify(basket));
+      updateCartCount();
+      showToast();
+    };
+
+    function showToast() {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    async function fetchFlights() {
+      loader.style.display = 'block';
+      errorBox.style.display = 'none';
+      container.innerHTML = '';
+
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const responseJson = await response.json();
+        const flightArray = responseJson.data;
+        if (!flightArray || flightArray.length === 0) throw new Error("No flights found.");
+        renderFlights(flightArray);
+      } catch (error) {
+        errorText.textContent = `Could not load flight data: ${error.message}`;
+        errorBox.style.display = 'block';
+      } finally {
+        loader.style.display = 'none';
+      }
+    }
+
+    function renderFlights(flights) {
+      container.innerHTML = '';
+      flights.forEach(flight => {
+        if (!flight.id || !flight.location || !flight.price) return;
+
+        const airline = flight.airline || 'Various Airlines';
+        const depTime = flight.departureTime || '10:00';
+        const arrTime = flight.arrivalTime || '14:00';
+        const duration = flight.duration || '4h 00m';
+        const stops = flight.stops || 'Direct';
+        const rating = flight.rating || '4.5';
+        const name = flight.location;
+        const backup = backupImages[name] || 'https://placehold.co/200x160?text=Flight';
+        const img = flight.image || backup;
+        const flightString = JSON.stringify(flight).replace(/'/g, "&#39;");
+
+        container.insertAdjacentHTML('beforeend', `
+          <div class="flight-card">
+            <div class="flight-card-image">
+              <img src="${img}" alt="${name}" onerror="this.src='${backup}'">
+              <span class="rating-badge">${rating} ★</span>
+            </div>
+            <div class="flight-card-body">
+              <div>
+                <h2>${name}</h2>
+                <p class="airline-name">Operated by ${airline}</p>
+                <div class="flight-route">
+                  <div class="route-point">
+                    <div class="time">${depTime}</div>
+                    <div class="code">LHR</div>
+                  </div>
+                  <div class="route-line">
+                    <div class="duration">${duration}</div>
+                    <div class="line"></div>
+                    <div class="stops-label">${stops}</div>
+                  </div>
+                  <div class="route-point">
+                    <div class="time">${arrTime}</div>
+                    <div class="code">Dest</div>
+                  </div>
+                </div>
+                <div class="flight-perks">
+                  <span>✓ Flexible date change</span>
+                  <span>✓ Baggage options available</span>
+                </div>
+              </div>
+            </div>
+            <div class="flight-card-price">
+              <span class="price-label">Starting price</span>
+              <span class="price">£${Number(flight.price).toFixed(0)}</span>
+              <span class="per-adult">per adult</span>
+              <button class="add-basket-btn" onclick='addToBasket(${flightString})'>Add to Basket</button>
+            </div>
+          </div>
+        `);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchFlights();
+      updateCartCount();
+    });
+  </script>
+
+</body>
+</html>
