@@ -1,61 +1,45 @@
 // backend/Controllers/destinationController.js
 
-console.log("TRACE: 1. Controller file loaded.");
+console.log("TRACE: 1. Controller file loaded (Destinations - REAL DB).");
 
-const mockDestinations = [
-    { 
-        id: 101, 
-        location: "Paris, France", 
-        price: 450, 
-        stock: 20, 
-        image: "/images/paris.jpg"
-    },
-    { 
-        id: 102, 
-        location: "Tokyo, Japan", 
-        price: 850, 
-        stock: 15, 
-        image: "/images/tokyo.jpg"
-    },
-    { 
-        id: 103, 
-        location: "New York, USA", 
-        price: 600, 
-        stock: 50, 
-        image: "/images/usa.jpg"
-    }
-];
+// 1. Import your real database connection
+const db = require("../config/db");
 
-// Get all destinations
-const getDestinations = (req, res, next) => {
+// Get all destinations from MySQL
+const getDestinations = async (req, res, next) => {
     try {
+        const [rows] = await db.execute("SELECT * FROM destinations");
+        
         res.status(200).json({
             success: true,
-            count: mockDestinations.length,
-            data: mockDestinations
+            count: rows.length,
+            data: rows
         });
     } catch (error) {
+        console.error("DATABASE ERROR fetching destinations:", error);
         next(error);
     }
 };
 
-// Get single destination by ID
-const getDestinationById = (req, res, next) => {
+// Get single destination by ID from MySQL
+const getDestinationById = async (req, res, next) => {
     try {
         const id = parseInt(req.params.id);
-        const destination = mockDestinations.find(d => d.id === id);
+        const [rows] = await db.execute("SELECT * FROM destinations WHERE id = ?", [id]);
 
-        if (!destination) {
-            const error = new Error(`Destination not found with id of ${id}`);
-            error.statusCode = 404;
-            throw error;
+        if (rows.length === 0) {
+            return res.status(404).json({ 
+                success: false,
+                error: `Destination not found with id of ${id}` 
+            });
         }
 
         res.status(200).json({
             success: true,
-            data: destination
+            data: rows[0] // Return the single matching row
         });
     } catch (error) {
+        console.error(`DATABASE ERROR fetching destination ${req.params.id}:`, error);
         next(error);
     }
 };

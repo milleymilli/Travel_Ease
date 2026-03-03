@@ -1,48 +1,65 @@
 const express = require("express");
-const Booking = require("../controllers/Booking"); // references booking class in ../models/booking.js
-const ValidateBooking = require("..middleware/validationMW"); //  validation middleware link
+const Booking = require("../Controllers/booking"); // Your new database booking logic
+const ValidateBooking = require("../middleware/validationMW"); // Fixed the missing slash!
 
 const router = express.Router();
 
-
-// Get all bookings
-router.get("/", (req, res) => 
-  {
-  res.json(Booking.findAll());  // returns all bookings as JSON
-});
-
-// Get booking by ID
-router.get("/:id", (req, res) => 
-  {
-  const id = parseInt(req.params.id); // gets ID from URL and converts it to integer
-  const booking = Booking.findById(id);
-  if (!booking) return res.status(404).json({ error: "Booking not found" });  // returns 404 if not found
-  res.json(booking);
-});
-
-// Create booking
-router.post("/", ValidateBooking, (req, res) => 
-  {
-  const { name, date } = req.body; // gets name and date from request body
-
-  if (!name || !date) {
-    return res.status(400).json({ error: "Name and date are required" }); // returns 400 if either parameter is missing
+// Get all bookings (Upgraded to async)
+router.get("/", async (req, res) => {
+  try {
+    const bookings = await Booking.findAll();
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ error: "Database error fetching bookings" });
   }
-
-  const booking = Booking.create({ name, date });
-  res.status(201).json(booking);  // returns 201 when/if created successfully
 });
 
-// Delete booking
-router.delete("/:id", (req, res) => 
-  {
-  const id = parseInt(req.params.id); // gets ID from URL and converts it to integer
-  const deleted = Booking.deleteById(id); // attempts to delete booking by ID
-
-  if (!deleted) return res.status(404).json({ error: "Booking not found" }); // returns 404 if not found
-
-  res.json(deleted); // returns deleted booking
+// Get booking by ID (Upgraded to async)
+router.get("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const booking = await Booking.findById(id);
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ error: "Database error fetching booking" });
+  }
 });
 
-module.exports = router; // makes it available to other files
 
+router.post("/", async (req, res) => {
+  try {
+    // We now require destination_id from the frontend basket
+    const { name, date, destination_id } = req.body;
+
+    if (!name || !date || !destination_id) {
+      return res.status(400).json({ error: "Name, date, and destination_id are required" });
+    }
+
+    // This calls your new Booking.create(), which updates the MySQL stock!
+    const booking = await Booking.create({ name, date, destination_id });
+    
+    res.status(201).json({
+      success: true,
+      message: "Checkout complete! Ticket stock updated.",
+      booking: booking
+    });
+  } catch (error) {
+    // If the flight is sold out, this catches the error and sends it to the user
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Delete booking (Upgraded to async)
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const deleted = await Booking.deleteById(id);
+    if (!deleted) return res.status(404).json({ error: "Booking not found" });
+    res.json({ success: true, message: "Booking deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Database error deleting booking" });
+  }
+});
+
+module.exports = router;

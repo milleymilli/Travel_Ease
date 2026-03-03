@@ -1,17 +1,23 @@
-function validateBooking (req, res, next)
-{
-    const {name, date} = req.body;
+function validateBooking(req, res, next) {
+    const { name, date, destination_id } = req.body;
 
-    if (!name || typeof name !== 'string' || name.trim() === '') // if name is missing or invalid, it returns 400 error
-        {
+    // 1. Check Name
+    if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({ error: 'Invalid or missing name' });
-        }
+    }
 
-    if (!date || isNaN(Date.parse(date))) // if date is missing or invalid, it returns 400 error
-        {
+    // 2. Check Date
+    if (!date || isNaN(Date.parse(date))) {
         return res.status(400).json({ error: 'Invalid or missing date' });
-        }
-    next(); // move on to next MW
+    }
+
+    // 3. Check Destination (New! Ensures we know WHAT is being booked)
+    if (!destination_id) {
+        return res.status(400).json({ error: 'Missing destination ID' });
+    }
+
+    next(); // Move on to the controller
 }
 
-Module.exports = {validateBooking}; // exports function
+// Fixed: lowercase 'module'
+module.exports = { validateBooking };
