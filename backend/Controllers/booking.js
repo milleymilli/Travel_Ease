@@ -1,38 +1,60 @@
-let bookings = 
-[
-  { id: 1, name: "John", date: "12-12-2025" },  //dummy data
-  { id: 2, name: "Joe", date: "11-01-2026" },
-];
+const db = require("../config/db");
 
-class Booking 
-{
-  static findAll() 
-  {
-    return bookings;  //returns all bookings
+class Booking {
+  // Get all bookings
+  static async findAll() {
+    const [rows] = await db.execute("SELECT * FROM bookings");
+    return rows;
   }
 
-  static findById(id) 
-  {
-    return bookings.find(b => b.id === id); //finds booking by ID
+  // Get booking by ID
+  static async findById(id) {
+    const [rows] = await db.execute("SELECT * FROM bookings WHERE id = ?", [id]);
+    return rows[0];
   }
 
-  static create({ name, date })   // creates new booking with name and date
-  {
-    const newBooking = {
-      id: bookings.length + 1,
-      name,
-      date
-    };
-    bookings.push(newBooking);  
-    return newBooking;
+  // Create a booking AND update destination stock
+  static async create({ name, date, destination_id, user_id }) {
+    const connection = await db.getConnection();
+    try {
+      await connection.beginTransaction();
+
+      // 1. Check if tickets are available
+      const [dest] = await connection.execute(
+        "SELECT stock FROM destinations WHERE id = ? FOR UPDATE",
+        [destination_id]
+      );
+
+      if (!dest[0] || dest[0].stock <= 0) {
+        throw new Error("Sorry, this flight is sold out!");
+      }
+
+      // 2. Insert the booking with the user_id
+      const [result] = await connection.execute(
+        "INSERT INTO bookings (name, date, destination_id, user_id) VALUES (?, ?, ?, ?)",
+        [name, date, destination_id, user_id]
+      );
+
+      // 3. Subtract 1 from the destination stock
+      await connection.execute(
+        "UPDATE destinations SET stock = stock - 1 WHERE id = ?",
+        [destination_id]
+      );
+
+      await connection.commit();
+      return { id: result.insertId, name, date, destination_id, user_id };
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
   }
 
-  static deleteById(id)   // deletes booking by ID
-  {
-    const index = bookings.findIndex(b => b.id === id);
-    if (index === -1) return null;
-    return bookings.splice(index, 1)[0];
+  static async deleteById(id) {
+    const [result] = await db.execute("DELETE FROM bookings WHERE id = ?", [id]);
+    return result.affectedRows > 0;
   }
 }
 
-module.exports = Booking;   // makes it available to other files
+module.exports = Booking;

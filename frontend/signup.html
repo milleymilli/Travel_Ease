@@ -13,7 +13,6 @@
 
 <body>
 
-
 <header>
     <div class="content flex_space">
         <div class="logo">
@@ -47,30 +46,29 @@
     }
 </script>
 
-
 <section class="signup-section">
     <div class="signup-box">
 
         <h2>Create Account</h2>
 
-        <form>
+        <form id="signup-form">
             <label>Full Name</label>
-            <input type="text" placeholder="Enter your name">
+            <input type="text" id="name" placeholder="Enter your name" required>
 
             <label>Email Address</label>
-            <input type="email" placeholder="Enter your email address">
+            <input type="email" id="email" placeholder="Enter your email address" required>
 
             <label>Password</label>
-            <input type="password" placeholder="Create password">
+            <input type="password" id="password" placeholder="Create password" required>
 
             <label>Confirm Password</label>
-            <input type="password" placeholder="Re-enter password">
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
 
-            <button class="signup-btn">Sign Up</button>
+            <button type="submit" class="signup-btn">Sign Up</button>
 
             <div class="or">or</div>
 
-            <button class="google-btn">
+            <button type="button" class="google-btn">
                 <i class="fa-brands fa-google"></i> Sign Up with Google
             </button>
 
@@ -82,7 +80,6 @@
 
     </div>
 </section>
-
 
 <footer>
     <div class="container grid">
@@ -124,6 +121,46 @@
 <div class="legal">
     <p class="container">Copyright (c) 2025 Copyright Holder All Rights Reserved.</p>
 </div>
+
+<script>
+    document.getElementById('signup-form').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevents the page from refreshing immediately
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return; 
+        }
+
+        try {
+            // Sends the data to your Node.js server
+            const response = await fetch('http://localhost:3000/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: name, email: email, password: password })
+            });
+
+            const data = await response.json();
+
+            // Checks if the server said "Success!"
+            if (response.ok) {
+                alert("Account created successfully!");
+                window.location.href = 'login.html'; 
+            } else {
+                alert("Backend said: " + (data.message || "Something went wrong")); 
+            }
+        } catch (error) {
+            console.error("Error talking to backend:", error);
+            alert("Could not connect to the Waiter. Is the Node.js server running?");
+        }
+    });
+</script>
 
 </body>
 </html>
