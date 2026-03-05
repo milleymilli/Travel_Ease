@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Ease</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+      </div>
+      <div class="navlinks">
+        <ul id="menulist">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="product.html">Flights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="basket.html" class="basket-link">Basket <span class="cart-badge" id="nav-cart-badge">0</span></a></li>
+          <li><button class="primary-btn" onclick="window.location.href='login.html'">Sign In</button></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    var menulist = document.getElementById("menulist");
+    menulist.style.maxHeight = "0px";
+    function menutoggle() {
+      menulist.style.maxHeight = menulist.style.maxHeight == "0px" ? "100vh" : "0px";
+    }
+  </script>
+
+  <section class="home">
+    <div class="content">
+      <div class="owl-carousel owl-theme">
+        <div class="item">
+          <img src="images/banner.jpg" alt="Banner">
+          <div class="text">
+            <h1>Explore Holidays</h1>
+            <p>Best deals of 2025, here at Travel Ease!</p>
+            <div class="flex">
+              <button class="primary-btn" onclick="window.location.href='product.html'">BROWSE FLIGHTS</button>
+              <button class="secondary-btn" onclick="window.location.href='contact.html'">CONTACT US</button>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="images/banner2.jpg" alt="Banner 2">
+          <div class="text">
+            <h1>Explore Holidays</h1>
+            <p>Best deals of 2025, here at Travel Ease!</p>
+            <div class="flex">
+              <button class="primary-btn" onclick="window.location.href='product.html'">BROWSE FLIGHTS</button>
+              <button class="secondary-btn" onclick="window.location.href='contact.html'">CONTACT US</button>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="images/banner3.jpg" alt="Banner 3">
+          <div class="text">
+            <h1>Explore Holidays</h1>
+            <p>Best deals of 2025, here at Travel Ease!</p>
+            <div class="flex">
+              <button class="primary-btn" onclick="window.location.href='product.html'">BROWSE FLIGHTS</button>
+              <button class="secondary-btn" onclick="window.location.href='contact.html'">CONTACT US</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+    $(".owl-carousel").owlCarousel({
+      loop: true, margin: 0, nav: true, dots: false,
+      navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+      responsive: { 0: { items: 1 }, 768: { items: 1 }, 1000: { items: 1 } }
+    });
+  </script>
+
+  <section class="book">
+    <div class="container flex_space">
+      <div class="text">
+        <h1><span>Book </span>Your Getaway:</h1>
+        <p>Reserve your dream vacation with Travel Ease today! Enjoy seamless booking, exclusive deals, and personalised service for an unforgettable getaway. Your adventure starts here!</p>
+      </div>
+      <div class="form">
+        <form class="grid">
+          <input type="date" placeholder="Arrival Date">
+          <input type="date" placeholder="Departure Date">
+          <select>
+            <option value="">Select Adults</option>
+            <option value="1">1 Adult</option>
+            <option value="2">2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults</option>
+            <option value="5">5 Adults</option>
+          </select>
+          <select>
+            <option value="">Select Children</option>
+            <option value="0">0 Children</option>
+            <option value="1">1 Child</option>
+            <option value="2">2 Children</option>
+            <option value="3">3 Children</option>
+            <option value="4">4 Children</option>
+          </select>
+          <select id="countrySelect">
+            <option value="">Select Country</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Tokyo">Tokyo</option>
+            <option value="New York">New York</option>
+            <option value="Paris">Paris</option>
+          </select>
+          <button type="button" class="primary-btn" onclick="window.location.href='product.html'">CHECK AVAILABILITY</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="about top">
+    <div class="container flex">
+      <div class="left">
+        <div class="heading">
+          <h1>WELCOME</h1>
+          <h2>Travel Ease</h2>
+        </div>
+        <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options. Enjoy smooth, reliable travel planning designed to get you where you need to go — easily and effortlessly.</p>
+        <button class="primary-btn" onclick="window.location.href='about.html'">ABOUT US</button>
+      </div>
+      <div class="right">
+        <img src="images/about.png" alt="Travel Ease About Image">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container grid">
+      <div class="box">
+        <img src="images/logo.png" alt="Travel Ease Logo">
+        <p>Travel Ease makes booking flights simple and stress-free with fast searches, clear pricing, and flexible options.</p>
+        <div class="icon">
+          <i class="fa fa-facebook-f"></i>
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-twitter"></i>
+          <i class="fa fa-youtube"></i>
+        </div>
+      </div>
+      <div class="box">
+        <h2>Links</h2>
+        <ul>
+          <li onclick="window.location.href='about.html'">About Us</li>
+          <li onclick="window.location.href='contact.html'">Contact Us</li>
+          <li onclick="window.location.href='product.html'">Flights</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Contact Us</h2>
+        <i class="fa fa-location-dot"></i><label>Aston University, Birmingham</label><br>
+        <i class="fa fa-phone"></i><label>[44] 123 456 789</label><br>
+        <i class="fa fa-envelope"></i><label>info@travelease.com</label>
+      </div>
+    </div>
+  </footer>
+
+  <div class="legal">
+    <p class="container">Copyright &copy; 2025 Travel Ease. All Rights Reserved.</p>
+  </div>
+
+  <script>
+    // Update basket badge
+    function updateNavBadge() {
+      const basket = JSON.parse(localStorage.getItem('travel_basket')) || [];
+      const badge = document.getElementById('nav-cart-badge');
+      if (badge) {
+        badge.textContent = basket.length;
+        badge.style.display = basket.length > 0 ? 'inline-flex' : 'none';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', updateNavBadge);
+  </script>
+
+</body>
+</html>
