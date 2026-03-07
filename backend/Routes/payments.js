@@ -1,5 +1,5 @@
 const express = require("express");     // import express
-const Payment = require("../controllers/payment");   // import payment class
+const Payment = require("../Controllers/payment");   // import payment class
 
 const router = express.Router();
 
@@ -44,3 +44,4 @@ router.delete("/:id", (req, res) =>
 
 
 module.exports = router; // makes it available to server.js
+
